@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Card, { CardVariant } from "./components/Card"
+import EventExample from "./components/EventExample"
+import UserPage from "./components/UserPage"
+import TodosPage from "./components/TodoPage"
+import { NavLink } from "react-router-dom"
+import UserItemPage from "./components/UserItemPage"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+
+
+    return (
+      <BrowserRouter>
+        <EventExample />
+        <Card onClick={() => console.log('click')} variant={CardVariant.outline} width="200px" height="200px"> 
+          <button>Кнопка</button>
+        </Card>
+        <div>
+          <NavLink to={'/users'}>Пользователи</NavLink>
+          <NavLink to={'/todos'}>Список дел</NavLink>
+        </div>
+        <Routes>
+          <Route path={'/users'} element={<UserPage />} />
+          <Route path={'/todos'} element={<TodosPage />} />
+          <Route path={'/users/:id'} element={<UserItemPage />} />
+        </Routes>
+      </BrowserRouter>
+    )
 }
 
-export default App;
+export default App
